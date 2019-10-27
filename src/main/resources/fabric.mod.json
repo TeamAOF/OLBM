@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "id": "starter",
+  "id": "olbm",
   "version": "$version",
 
-  "name": "Fabric Starter",
+  "name": "OLBM",
   "icon": "assets/starter/icon.png",
-  "description": "Template for starting out Fabric mods",
+  "description": "Obligatory Loot Bag Mod",
   "license": "MIT",
   "contact": {
-    "sources": "https://github.com/CottonMC/FabricStarter"
+    "sources": "https://github.com/AllOfFabric/OLBM"
   },
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.github.cottonmc.starter.FabricStarter"
+      "io.github.alloffabric.olbm.OLBM"
     ]
   },
   "mixins": [
@@ -21,8 +21,5 @@
   ],
   "depends": {
     "fabricloader": ">=0.4.0"
-  },
-  "custom": {
-    "modmenu:api": true
   }
 }
