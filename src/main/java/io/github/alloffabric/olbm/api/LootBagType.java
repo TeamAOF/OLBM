@@ -33,7 +33,7 @@ public class LootBagType {
 		return color;
 	}
 
-	Item getBag() {
+	public Item getBag() {
 		return bag;
 	}
 }

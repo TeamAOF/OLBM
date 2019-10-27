@@ -14,6 +14,9 @@
   "entrypoints": {
     "main": [
       "io.github.alloffabric.olbm.OLBM"
+    ],
+    "client": [
+      "io.github.alloffabric.olbm.OLBClient"
     ]
   },
   "mixins": [
