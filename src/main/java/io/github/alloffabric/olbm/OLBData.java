@@ -40,7 +40,7 @@ public class OLBData {
 	}
 
 	public static void loadData() {
-		Set<StaticDataItem> data = StaticData.getAll("artis.json5");
+		Set<StaticDataItem> data = StaticData.getAll("olbm.json5");
 		for (StaticDataItem item : data) {
 			try {
 				JsonObject json = jankson.load(item.createInputStream());
