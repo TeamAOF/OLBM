@@ -4,9 +4,17 @@ import com.swordglowsblue.artifice.api.Artifice;
 import com.swordglowsblue.artifice.api.builder.assets.ModelBuilder;
 import com.swordglowsblue.artifice.api.util.Processor;
 import io.github.alloffabric.olbm.api.LootBagType;
+import io.github.alloffabric.olbm.inventory.LootBagContainer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.ColorProviderRegistry;
+import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
+import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
+import net.minecraft.client.gui.screen.ingame.ContainerScreen54;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;
+import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 import java.util.HashMap;
@@ -27,6 +35,7 @@ public class OLBClient implements ClientModInitializer {
 			LootBagType type = OLBM.LOOT_BAG_TYPES.get(id);
 			ColorProviderRegistry.ITEM.register((stack, layer) -> type.getColor(), type.getBag());
 		}
+		ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier(OLBM.MODID, "loot_bag"), container -> new ContainerScreen54((LootBagContainer)container, ((LootBagContainer)container).getPlayer().inventory, getName((LootBagContainer)container)));
 	}
 
 	public static void createModels() {
@@ -37,6 +46,25 @@ public class OLBClient implements ClientModInitializer {
 						builder.parent(new Identifier("item/generated"))
 								.texture("layer0", new Identifier(OLBM.MODID, "item/bag")));
 			}
+		}
+	}
+
+	private static Text getName(LootBagContainer container) {
+		Identifier id = container.getId();
+		String key = "lootbag." + id.getNamespace() + "." + id.getPath();
+		if (I18n.hasTranslation(key)) return new TranslatableText(key);
+		else {
+			StringBuilder builder = new StringBuilder();
+			//TODO: do we want the namespace here?
+//			builder.append(id.getNamespace().substring(0, 1).toUpperCase());
+//			builder.append(id.getNamespace().substring(1) + " ");
+			String[] splitPath = id.getPath().split("_");
+			for (String substr : splitPath) {
+				builder.append(substr.substring(0, 1).toUpperCase());
+				builder.append(substr.substring(1));
+				builder.append(" ");
+			}
+			return new LiteralText(builder.toString());
 		}
 	}
 }
