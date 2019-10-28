@@ -8,7 +8,6 @@ import io.github.alloffabric.olbm.inventory.LootBagContainer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
 import net.minecraft.client.gui.screen.ingame.ContainerScreen54;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;

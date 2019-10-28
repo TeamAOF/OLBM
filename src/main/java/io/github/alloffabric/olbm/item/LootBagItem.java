@@ -76,4 +76,9 @@ public class LootBagItem extends Item {
 	public Text getName(ItemStack stack) {
 		return getName();
 	}
+
+	@Override
+	public boolean hasEnchantmentGlint(ItemStack stack) {
+		return type.hasGlint();
+	}
 }

@@ -11,6 +11,7 @@ import io.github.cottonmc.staticdata.StaticDataItem;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Rarity;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -78,9 +79,25 @@ public class OLBData {
 			makeItem = json.get(Boolean.class, "has_item");
 		}
 		if (makeItem) {
-			return new LootBagType(id, tableId, color, Optional.of(new Item.Settings().maxCount(1).group(OLBM.OLBM_GROUP)));
+			Rarity rarity = json.containsKey("rarity")? getRarity(json.get(String.class, "rarity")) : Rarity.COMMON;
+			boolean hasGlint = json.containsKey("glint")? json.get(Boolean.class, "glint") : false;
+			return new LootBagType(id, tableId, color, hasGlint, Optional.of(new Item.Settings().maxCount(1).group(OLBM.OLBM_GROUP).rarity(rarity)));
 		} else {
-			return new LootBagType(id, tableId, color, Optional.empty());
+			return new LootBagType(id, tableId, color, false, Optional.empty());
 		}
+	}
+
+	static Rarity getRarity(String rarity) {
+		switch(rarity.toLowerCase()) {
+			case "common":
+				return Rarity.COMMON;
+			case "uncommon":
+				return Rarity.UNCOMMON;
+			case "rare":
+				return Rarity.RARE;
+			case "epic":
+				return Rarity.EPIC;
+		}
+		return Rarity.COMMON;
 	}
 }
