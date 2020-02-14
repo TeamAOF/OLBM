@@ -47,7 +47,6 @@ public class OLBM implements ModInitializer {
 
 	public static LootBagType registerBag(LootBagType type) {
 		Identifier id = type.getId();
-		//TODO: container stuff
 		return Registry.register(LOOT_BAG_TYPES, id, type);
 	}
 }

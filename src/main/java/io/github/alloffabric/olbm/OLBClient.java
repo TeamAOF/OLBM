@@ -8,7 +8,7 @@ import io.github.alloffabric.olbm.inventory.LootBagContainer;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.render.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.screen.ScreenProviderRegistry;
-import net.minecraft.client.gui.screen.ingame.ContainerScreen54;
+import net.minecraft.client.gui.screen.ingame.GenericContainerScreen;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.item.Items;
 import net.minecraft.text.LiteralText;
@@ -34,7 +34,7 @@ public class OLBClient implements ClientModInitializer {
 			LootBagType type = OLBM.LOOT_BAG_TYPES.get(id);
 			ColorProviderRegistry.ITEM.register((stack, layer) -> type.getColor(), type.getBag());
 		}
-		ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier(OLBM.MODID, "loot_bag"), container -> new ContainerScreen54((LootBagContainer)container, ((LootBagContainer)container).getPlayer().inventory, getName((LootBagContainer)container)));
+		ScreenProviderRegistry.INSTANCE.registerFactory(new Identifier(OLBM.MODID, "loot_bag"), container -> new GenericContainerScreen((LootBagContainer)container, ((LootBagContainer)container).getPlayer().inventory, getName(((LootBagContainer)container).getId())));
 	}
 
 	public static void createModels() {
@@ -48,8 +48,7 @@ public class OLBClient implements ClientModInitializer {
 		}
 	}
 
-	private static Text getName(LootBagContainer container) {
-		Identifier id = container.getId();
+	public static Text getName(Identifier id) {
 		String key = "lootbag." + id.getNamespace() + "." + id.getPath();
 		if (I18n.hasTranslation(key)) return new TranslatableText(key);
 		else {

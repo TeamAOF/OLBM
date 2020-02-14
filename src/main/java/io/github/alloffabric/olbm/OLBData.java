@@ -3,7 +3,7 @@ package io.github.alloffabric.olbm;
 import blue.endless.jankson.Jankson;
 import blue.endless.jankson.JsonElement;
 import blue.endless.jankson.JsonObject;
-import blue.endless.jankson.impl.SyntaxError;
+import blue.endless.jankson.api.SyntaxError;
 import io.github.alloffabric.olbm.api.LootBagType;
 import io.github.cottonmc.jankson.JanksonFactory;
 import io.github.cottonmc.staticdata.StaticData;
@@ -74,10 +74,7 @@ public class OLBData {
 		Identifier id = new Identifier(key);
 		Identifier tableId = new Identifier(json.get(String.class, "loot"));
 		int color = Integer.decode(json.get(String.class, "color").replace("#", "0x"));
-		boolean makeItem = true;
-		if (json.containsKey("has_item")) {
-			makeItem = json.get(Boolean.class, "has_item");
-		}
+		boolean makeItem = json.getBoolean("make_item", true);
 		if (makeItem) {
 			Rarity rarity = json.containsKey("rarity")? getRarity(json.get(String.class, "rarity")) : Rarity.COMMON;
 			boolean hasGlint = json.containsKey("glint")? json.get(Boolean.class, "glint") : false;
