@@ -53,18 +53,21 @@ public class OLBData {
 	}
 
 	private static void loadEntries(String from, JsonObject json) {
-		List<String> keys = new ArrayList<>(json.keySet());
-		Collections.sort(keys);
-		for (String key : keys) {
-			if (OLBM.LOOT_BAG_TYPES.containsId(new Identifier(key))) {
-				OLBM.logger.error("[OLBM] Table type named {} already exists, skipping it in {}", key, from);
-				continue;
-			}
-			JsonElement elem = json.get(key);
-			if (elem instanceof JsonObject) {
-				JsonObject config = (JsonObject)elem;
-				LootBagType type = getType(key, config);
-				OLBM.registerBag(type);
+		JsonObject bagObj = json.getObject("bags");
+		if (bagObj != null) {
+			List<String> keys = new ArrayList<>(bagObj.keySet());
+			Collections.sort(keys);
+			for (String key : keys) {
+				if (OLBM.LOOT_BAG_TYPES.containsId(new Identifier(key))) {
+					OLBM.logger.error("[OLBM] Table type named {} already exists, skipping it in {}", key, from);
+					continue;
+				}
+				JsonElement elem = bagObj.get(key);
+				if (elem instanceof JsonObject) {
+					JsonObject config = (JsonObject) elem;
+					LootBagType type = getType(key, config);
+					OLBM.registerBag(type);
+				}
 			}
 		}
 	}
@@ -77,7 +80,7 @@ public class OLBData {
 		boolean makeItem = json.getBoolean("make_item", true);
 		if (makeItem) {
 			Rarity rarity = json.containsKey("rarity")? getRarity(json.get(String.class, "rarity")) : Rarity.COMMON;
-			boolean hasGlint = json.containsKey("glint")? json.get(Boolean.class, "glint") : false;
+			boolean hasGlint = json.getBoolean("glint", false);
 			return new LootBagType(id, tableId, color, hasGlint, Optional.of(new Item.Settings().maxCount(1).group(OLBM.OLBM_GROUP).rarity(rarity)));
 		} else {
 			return new LootBagType(id, tableId, color, false, Optional.empty());
