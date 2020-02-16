@@ -23,6 +23,10 @@
     "mixins.starter.json"
   ],
   "depends": {
-    "fabricloader": ">=0.4.0"
+    "fabricloader": ">=0.4.0",
+    "fabric": "*",
+    "jankson": ">=2.0.0",
+    "staticdata": "*",
+    "artifice": "*"
   }
 }

@@ -58,8 +58,8 @@ public class OLBData {
 			List<String> keys = new ArrayList<>(bagObj.keySet());
 			Collections.sort(keys);
 			for (String key : keys) {
-				if (OLBM.LOOT_BAG_TYPES.containsId(new Identifier(key))) {
-					OLBM.logger.error("[OLBM] Table type named {} already exists, skipping it in {}", key, from);
+				if (OLBM.LOOT_BAG_TYPES.hasId(new Identifier(key))) {
+					OLBM.logger.error("[OLBM] Loot bag type named {} already exists, skipping it in {}", key, from);
 					continue;
 				}
 				JsonElement elem = bagObj.get(key);
