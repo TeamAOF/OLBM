@@ -34,9 +34,9 @@ public class LootBagItem extends Item {
 		if (!world.isClient) {
 			ServerWorld server = (ServerWorld)world;
 			Identifier id = type.getTableId();
-			LootContext ctx = new LootContext.Builder(server).put(LootContextParameters.THIS_ENTITY, player).put(LootContextParameters.POSITION, player.getBlockPos()).build(LootContextTypes.GIFT);
-			LootTable supplier = server.getServer().getLootManager().getSupplier(id);
-			List<ItemStack> stacks = supplier.getDrops(ctx);
+			LootContext ctx = new LootContext.Builder(server).parameter(LootContextParameters.THIS_ENTITY, player).parameter(LootContextParameters.POSITION, player.getBlockPos()).build(LootContextTypes.GIFT);
+			LootTable supplier = server.getServer().getLootManager().getTable(id);
+			List<ItemStack> stacks = supplier.generateLoot(ctx);
 			ContainerProviderRegistry.INSTANCE.openContainer(new Identifier(OLBM.MODID, "loot_bag"), player, buf -> {
 				buf.writeIdentifier(type.getId());
 				buf.writeVarInt(stacks.size());
@@ -61,7 +61,7 @@ public class LootBagItem extends Item {
 	}
 
 	@Override
-	public boolean hasEnchantmentGlint(ItemStack stack) {
+	public boolean hasGlint(ItemStack stack) {
 		return type.hasGlint();
 	}
 

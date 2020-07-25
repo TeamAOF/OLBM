@@ -2,7 +2,7 @@ plugins {
 	id "java"
 	id "eclipse"
 	id "idea"
-	id "fabric-loom" version "0.2.6-SNAPSHOT"
+	id "fabric-loom" version "0.4.30"
 	id "maven-publish"
 	id "com.jfrog.artifactory" version "4.9.0"
 }

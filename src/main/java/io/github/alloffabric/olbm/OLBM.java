@@ -6,13 +6,13 @@ import io.github.alloffabric.olbm.util.OLBRegistry;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.container.ContainerProviderRegistry;
-import net.minecraft.inventory.BasicInventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.util.DefaultedList;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.SimpleRegistry;
 import org.apache.logging.log4j.LogManager;
@@ -58,7 +58,7 @@ public class OLBM implements ModInitializer {
 				ItemStack stack = buf.readItemStack();
 				stacks.set(i, stack);
 			}
-			return new LootBagContainer(id, syncId, player, new BasicInventory(stacks.toArray(new ItemStack[]{})));
+			return new LootBagContainer(id, syncId, player, new SimpleInventory(stacks.toArray(new ItemStack[]{})));
 		});
 	}
 
